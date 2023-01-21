@@ -1,25 +1,25 @@
 #include <Servo.h>
 
-//SERWA
+//Servos
 Servo serwo1; 
 Servo serwo2;
 Servo serwo3;
 Servo serwo4;
-//LEDY
+//LED's
 const int LED1 = 12; 
 const int LED2 = 13;
-//PRZYCISKI
+//Buttons
 const int przycisk1 = 5; 
 const int przycisk2 = 3;
-//WARTOŚCI PRZYCISKÓW
+//Button value
 int przycisk1ilerazy = 0;
 int przycisk2ilerazy = 0;
-//POTENCJOMETRY
+//Potentiometers
 const int pot1 = A0; 
 const int pot2 = A1; 
 const int pot3 = A2;
 const int pot4 = A3;
-//WARTOŚCI POTENCJOMETRÓW
+//Potentiometer values
 int pot1wart; 
 int pot2wart;
 int pot3wart;
@@ -28,7 +28,7 @@ int pot1Kat;
 int pot2Kat;
 int pot3Kat;
 int pot4Kat;
-//ZAPISANE POZYCJE SERW
+//Save the servo position
 int serwo1Poz[] = {1,1,1,1,1,1}; 
 int serwo2Poz[] = {1,1,1,1,1,1};
 int serwo3Poz[] = {1,1,1,1,1,1};
@@ -36,7 +36,7 @@ int serwo4Poz[] = {1,1,1,1,1,1};
 
 void setup() {
   
-//PRZYPISANIE PINÓW
+//Pin setup
 serwo1.attach(8); 
 serwo2.attach(9);
 serwo3.attach(10);
@@ -47,7 +47,7 @@ pinMode(LED2, OUTPUT);
 
 pinMode(przycisk1, INPUT_PULLUP);
 pinMode(przycisk2, INPUT_PULLUP);
-//PRZERWANIE
+//interrupt
 attachInterrupt(digitalPinToInterrupt(przycisk2), funkcja, FALLING);
 
 Serial.begin(9600);
@@ -55,8 +55,8 @@ Serial.begin(9600);
 
 void loop() {
   
-pot1wart = analogRead(pot1);//Zczytujemy wartość z potencjometru
-pot1Kat = map(pot1wart, 0, 1023, 0 , 180); //mapujemy wartość z potencjometru na kąt dla serwa
+pot1wart = analogRead(pot1);//Read value from potentiometer
+pot1Kat = map(pot1wart, 0, 1023, 0 , 180); //map the value from potentiometer to angle 
 pot2wart = analogRead(pot2);
 pot2Kat = map(pot2wart, 0, 1023, 0 , 180);
 pot3wart = analogRead(pot3);
@@ -64,7 +64,7 @@ pot3Kat = map(pot3wart, 0, 1023, 0 , 180);
 pot4wart = analogRead(pot4);
 pot4Kat = map(pot4wart, 300, 1000, 0 ,90);
 {
-  serwo1.write(pot1Kat); //ruch serwa 
+  serwo1.write(pot1Kat); //servo motion 
   serwo2.write(pot2Kat);
   serwo3.write(pot3Kat);
   serwo4.write(pot4Kat);
@@ -74,7 +74,7 @@ pot4Kat = map(pot4wart, 300, 1000, 0 ,90);
   Serial.println(pot4Kat);
   delay(30);
 }
-if(digitalRead(przycisk1) == LOW){//sprawdzane jest ile razy przycisk1 został nacisniety i zapisuje pozycje do tablicy zależąc ile razy przycisk został naciśnięty  
+if(digitalRead(przycisk1) == LOW){//checks how many times przycisk1 had been push and saves the servo value to array  
   przycisk1ilerazy++;
   digitalWrite(LED1, HIGH);
   delay(250);
